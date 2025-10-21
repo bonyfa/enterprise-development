@@ -10,40 +10,40 @@ public class Patient
     //<summary>
     //Uniq passport id of patient
     //</summary>
-    public required int PassportId;
+    public required int PassportId { get; set; }
     
     //<summary>
     //FullName of the patient
     //</summary>
-    public required string FullName;
+    public required string FullName { get; set; } 
     
     //<summary>
     //FullName of the patient
     //</summary>
-    public required Gender Gender;
+    public required Gender Gender { get; set; }
     
     //<summary>
     //DateOfBirth of the patient
     //</summary>
-    public required DateTime DateOfBirth;
+    public required DateTime DateOfBirth { get; set; }
     
     //<summary>
     //Address of the patient
     //</summary>
-    public required string Address;
+    public required string Address { get; set; }
     
     //<summary>
     //Blood group of the patient
     //</summary>
-    public required BloodGroup BloodGroup;
+    public required BloodGroup BloodGroup { get; set; }
     
     //<summary>
     //Rhesus factor of the patient
     //</summary>
-    public required RhesusFactor RhesusFactor;
+    public required RhesusFactor RhesusFactor { get; set; }
     
     //<summary>
     //Phone number of the patient
     //</summary>
-    public required string PhoneNumber;
+    public required string PhoneNumber { get; set; }
 }
