@@ -1,6 +1,6 @@
-namespace Hospital.Models;
-
 using Hospital.Enums;
+
+namespace Hospital.Models;
 
 //<summary>
 //Model that describe patient

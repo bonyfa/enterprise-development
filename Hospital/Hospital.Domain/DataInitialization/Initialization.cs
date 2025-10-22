@@ -1,7 +1,7 @@
-namespace Hospital.DataInitialization;
-
 using Hospital.Enums;
 using Hospital.Models;
+
+namespace Hospital.DataInitialization;
 
 //<summary>
 //Model for Initialization Data
