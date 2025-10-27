@@ -5,10 +5,10 @@ namespace Hospital.Models;
 //</summary>
 public class Appointment
 {
-    //<summary>
-    //Id of appointment
-    //</summary>
-    public required int Id { get; set; }
+    /// <summary>
+    /// Unique ID of appointment (GUID)
+    /// </summary>
+    public required Guid Id { get; set; } = Guid.NewGuid();
     
     //<summary>
     //Date and time of appointment

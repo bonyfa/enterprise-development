@@ -13,16 +13,16 @@ public static class Initialization
     //</summary>
     public static List<Specialization> Specializations => new List<Specialization>
     {
-        new Specialization { Id = 1, Name = "Терапевт" },
-        new Specialization { Id = 2, Name = "Хирург" },
-        new Specialization { Id = 3, Name = "Дерматовенеролог" },
-        new Specialization { Id = 4, Name = "Офтальмолог" },
-        new Specialization { Id = 5, Name = "Уролог" },
-        new Specialization { Id = 6, Name = "Гинеколог" },
-        new Specialization { Id = 7, Name = "Рентгенолог" },
-        new Specialization { Id = 8, Name = "Анестезиолог" },
-        new Specialization { Id = 9, Name = "Вирусолог" },
-        new Specialization { Id = 10, Name = "Ортопед" }
+        new Specialization { Id = Guid.NewGuid(), Name = "Терапевт" },
+        new Specialization { Id = Guid.NewGuid(), Name = "Хирург" },
+        new Specialization { Id = Guid.NewGuid(), Name = "Дерматовенеролог" },
+        new Specialization { Id = Guid.NewGuid(), Name = "Офтальмолог" },
+        new Specialization { Id = Guid.NewGuid(), Name = "Уролог" },
+        new Specialization { Id = Guid.NewGuid(), Name = "Гинеколог" },
+        new Specialization { Id = Guid.NewGuid(), Name = "Рентгенолог" },
+        new Specialization { Id = Guid.NewGuid(), Name = "Анестезиолог" },
+        new Specialization { Id = Guid.NewGuid(), Name = "Вирусолог" },
+        new Specialization { Id = Guid.NewGuid(), Name = "Ортопед" }
     };
     
     //<summary>
@@ -32,10 +32,11 @@ public static class Initialization
 {
     new Patient
     { 
+        Id = Guid.NewGuid(),
         PassportId = 45123456, 
         FullName = "Иванов Иван Иванович", 
         Gender = Gender.Male, 
-        DateOfBirth = new DateTime(1985, 3, 15), 
+        DateOfBirth = new DateOnly(1985, 3, 15), 
         Address = "г. Москва, ул. Ленина, д. 10, кв. 25", 
         BloodGroup = BloodGroup.A, 
         RhesusFactor = RhesusFactor.Positive, 
@@ -43,10 +44,11 @@ public static class Initialization
     },
     new Patient
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45987654, 
         FullName = "Петрова Анна Сергеевна", 
         Gender = Gender.Female, 
-        DateOfBirth = new DateTime(1990, 7, 22), 
+        DateOfBirth = new DateOnly(1990, 7, 22), 
         Address = "г. Санкт-Петербург, Невский пр-т, д. 45, кв. 12", 
         BloodGroup = BloodGroup.B, 
         RhesusFactor = RhesusFactor.Negative, 
@@ -54,10 +56,11 @@ public static class Initialization
     },
     new Patient
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45567890, 
         FullName = "Сидоров Алексей Петрович", 
         Gender = Gender.Male, 
-        DateOfBirth = new DateTime(1978, 11, 5), 
+        DateOfBirth = new DateOnly(1978, 11, 5), 
         Address = "г. Екатеринбург, ул. Мира, д. 33, кв. 8", 
         BloodGroup = BloodGroup.O, 
         RhesusFactor = RhesusFactor.Positive, 
@@ -65,10 +68,11 @@ public static class Initialization
     },
     new Patient
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45345678, 
         FullName = "Козлова Мария Владимировна", 
         Gender = Gender.Female, 
-        DateOfBirth = new DateTime(1995, 1, 30), 
+        DateOfBirth = new DateOnly(1995, 1, 30), 
         Address = "г. Новосибирск, ул. Кирова, д. 78, кв. 15", 
         BloodGroup = BloodGroup.Ab, 
         RhesusFactor = RhesusFactor.Positive, 
@@ -76,10 +80,11 @@ public static class Initialization
     },
     new Patient
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45789012, 
         FullName = "Федоров Дмитрий Николаевич", 
         Gender = Gender.Male, 
-        DateOfBirth = new DateTime(1982, 8, 14), 
+        DateOfBirth = new DateOnly(1982, 8, 14), 
         Address = "г. Казань, ул. Баумана, д. 25, кв. 7", 
         BloodGroup = BloodGroup.A, 
         RhesusFactor = RhesusFactor.Negative, 
@@ -87,10 +92,11 @@ public static class Initialization
     },
     new Patient
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45456789, 
         FullName = "Николаева Ольга Игоревна", 
         Gender = Gender.Female, 
-        DateOfBirth = new DateTime(1988, 12, 3), 
+        DateOfBirth = new DateOnly(1988, 12, 3), 
         Address = "г. Ростов-на-Дону, ул. Пушкинская, д. 60, кв. 33", 
         BloodGroup = BloodGroup.B, 
         RhesusFactor = RhesusFactor.Positive, 
@@ -98,10 +104,11 @@ public static class Initialization
     },
     new Patient
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45678901, 
         FullName = "Волков Сергей Александрович", 
         Gender = Gender.Male, 
-        DateOfBirth = new DateTime(1975, 5, 18), 
+        DateOfBirth = new DateOnly(1975, 5, 18), 
         Address = "г. Челябинск, ул. Комарова, д. 12, кв. 9", 
         BloodGroup = BloodGroup.O, 
         RhesusFactor = RhesusFactor.Negative, 
@@ -109,10 +116,11 @@ public static class Initialization
     },
     new Patient
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45234567, 
         FullName = "Смирнова Екатерина Дмитриевна", 
         Gender = Gender.Female, 
-        DateOfBirth = new DateTime(1992, 9, 25), 
+        DateOfBirth = new DateOnly(1992, 9, 25), 
         Address = "г. Уфа, ул. Революционная, д. 88, кв. 21", 
         BloodGroup = BloodGroup.Ab, 
         RhesusFactor = RhesusFactor.Negative, 
@@ -120,10 +128,11 @@ public static class Initialization
     },
     new Patient
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45890123, 
         FullName = "Попов Андрей Викторович", 
         Gender = Gender.Male, 
-        DateOfBirth = new DateTime(1980, 4, 8), 
+        DateOfBirth = new DateOnly(1980, 4, 8), 
         Address = "г. Волгоград, ул. Рабоче-Крестьянская, д. 15, кв. 44", 
         BloodGroup = BloodGroup.A, 
         RhesusFactor = RhesusFactor.Positive, 
@@ -131,10 +140,11 @@ public static class Initialization
     },
     new Patient
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45561234, 
         FullName = "Лебедева Татьяна Павловна", 
         Gender = Gender.Female, 
-        DateOfBirth = new DateTime(1987, 6, 11), 
+        DateOfBirth = new DateOnly(1987, 6, 11), 
         Address = "г. Пермь, ул. Ленина, д. 95, кв. 16", 
         BloodGroup = BloodGroup.B, 
         RhesusFactor = RhesusFactor.Positive, 
@@ -149,81 +159,91 @@ public static class Initialization
     {
     new Doctor 
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45112233, 
         FullName = "Смирнов Александр Иванович", 
-        DateOfBirth = new DateTime(1975, 5, 15), 
+        DateOfBirth = new DateOnly(1975, 5, 15), 
         Specialization = Specializations[0], 
         WorkExperience = 20
     },
     new Doctor 
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45445566, 
         FullName = "Петрова Елена Викторовна", 
-        DateOfBirth = new DateTime(1980, 8, 22), 
+        DateOfBirth = new DateOnly(1980, 8, 22), 
         Specialization = Specializations[1], 
         WorkExperience = 15 
     },
     new Doctor 
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45778899, 
         FullName = "Козлов Дмитрий Сергеевич", 
-        DateOfBirth = new DateTime(1978, 3, 10), 
+        DateOfBirth = new DateOnly(1978, 3, 10), 
         Specialization = Specializations[2], 
         WorkExperience = 18 
     },
     new Doctor 
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45123450, 
         FullName = "Иванова Ольга Николаевна", 
-        DateOfBirth = new DateTime(1985, 11, 5), 
+        DateOfBirth = new DateOnly(1985, 11, 5), 
         Specialization = Specializations[3], 
         WorkExperience = 12 
     },
     new Doctor 
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45234561, 
         FullName = "Федоров Максим Андреевич", 
-        DateOfBirth = new DateTime(1970, 7, 30), 
+        DateOfBirth = new DateOnly(1970, 7, 30), 
         Specialization = Specializations[4], 
         WorkExperience = 25 
     },
     new Doctor 
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45345672, 
         FullName = "Николаева Светлана Петровна", 
-        DateOfBirth = new DateTime(1982, 1, 18), 
+        DateOfBirth = new DateOnly(1982, 1, 18), 
         Specialization = Specializations[5], 
         WorkExperience = 13 
     },
     new Doctor 
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45456783, 
         FullName = "Волков Артем Игоревич", 
-        DateOfBirth = new DateTime(1973, 9, 8), 
+        DateOfBirth = new DateOnly(1973, 9, 8), 
         Specialization = Specializations[6], 
         WorkExperience = 22 
     },
     new Doctor 
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45567894, 
         FullName = "Семенова Анна Дмитриевна", 
-        DateOfBirth = new DateTime(1988, 4, 25), 
+        DateOfBirth = new DateOnly(1988, 4, 25), 
         Specialization = Specializations[7], 
         WorkExperience = 9 
     },
     new Doctor 
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45678905, 
         FullName = "Павлов Сергей Владимирович", 
-        DateOfBirth = new DateTime(1976, 12, 12), 
+        DateOfBirth = new DateOnly(1976, 12, 12), 
         Specialization = Specializations[8], 
         WorkExperience = 19 
     },
-    new Doctor 
+    new Doctor
     { 
+        Id = Guid.NewGuid(),  
         PassportId = 45789016, 
         FullName = "Морозова Ирина Александровна", 
-        DateOfBirth = new DateTime(1983, 6, 7), 
+        DateOfBirth = new DateOnly(1983, 6, 7), 
         Specialization = Specializations[9], 
         WorkExperience = 14 
     }
@@ -236,7 +256,7 @@ public static class Initialization
 {
     new Appointment
     {
-        Id = 1,
+        Id = Guid.NewGuid(),
         DateAndTime = new DateTime(2025, 1, 15, 9, 0, 0),
         NumberOfOffice = 101,
         IsRepeated = false,
@@ -245,7 +265,7 @@ public static class Initialization
     },
     new Appointment
     {
-        Id = 2,
+        Id = Guid.NewGuid(),
         DateAndTime = new DateTime(2025, 1, 15, 10, 30, 0),
         NumberOfOffice = 205,
         IsRepeated = true,
@@ -254,7 +274,7 @@ public static class Initialization
     },
     new Appointment
     {
-        Id = 3,
+        Id = Guid.NewGuid(),
         DateAndTime = new DateTime(2025, 1, 16, 11, 0, 0),
         NumberOfOffice = 312,
         IsRepeated = false,
@@ -263,7 +283,7 @@ public static class Initialization
     },
     new Appointment
     {
-        Id = 4,
+        Id = Guid.NewGuid(),
         DateAndTime = new DateTime(2025, 1, 16, 14, 15, 0),
         NumberOfOffice = 118,
         IsRepeated = true,
@@ -272,7 +292,7 @@ public static class Initialization
     },
     new Appointment
     {
-        Id = 5,
+        Id = Guid.NewGuid(),
         DateAndTime = new DateTime(2025, 1, 17, 8, 45, 0),
         NumberOfOffice = 224,
         IsRepeated = false,
@@ -281,7 +301,7 @@ public static class Initialization
     },
     new Appointment
     {
-        Id = 6,
+        Id = Guid.NewGuid(),
         DateAndTime = new DateTime(2025, 1, 17, 13, 20, 0),
         NumberOfOffice = 307,
         IsRepeated = true,
@@ -290,7 +310,7 @@ public static class Initialization
     },
     new Appointment
     {
-        Id = 7,
+        Id = Guid.NewGuid(),
         DateAndTime = new DateTime(2025, 1, 18, 10, 0, 0),
         NumberOfOffice = 201,
         IsRepeated = false,
@@ -299,7 +319,7 @@ public static class Initialization
     },
     new Appointment
     {
-        Id = 8,
+        Id = Guid.NewGuid(),
         DateAndTime = new DateTime(2025, 1, 18, 15, 30, 0),
         NumberOfOffice = 415,
         IsRepeated = true,
@@ -308,7 +328,7 @@ public static class Initialization
     },
     new Appointment
     {
-        Id = 9,
+        Id = Guid.NewGuid(),
         DateAndTime = new DateTime(2025, 1, 19, 9, 30, 0),
         NumberOfOffice = 108,
         IsRepeated = false,
@@ -317,7 +337,7 @@ public static class Initialization
     },
     new Appointment
     {
-        Id = 10,
+        Id = Guid.NewGuid(),
         DateAndTime = new DateTime(2025, 1, 19, 16, 0, 0),
         NumberOfOffice = 303,
         IsRepeated = true,
