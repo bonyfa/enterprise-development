@@ -6,7 +6,8 @@ namespace Hospital.Models;
 public class Specialization
 {
     //<summary>
-    //Name of Specialization
+    //Name and key of Specialization
     //</summary>
+    public required int Id { get; set; }
     public required string Name { get; set; }
 }

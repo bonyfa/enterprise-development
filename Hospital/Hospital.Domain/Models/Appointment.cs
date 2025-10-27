@@ -6,6 +6,11 @@ namespace Hospital.Models;
 public class Appointment
 {
     //<summary>
+    //Id of appointment
+    //</summary>
+    public required int Id { get; set; }
+    
+    //<summary>
     //Date and time of appointment
     //</summary>
     public required DateTime DateAndTime { get; set; }

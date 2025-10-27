@@ -416,3 +416,9 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+.DS_Store
+Hospital/.DS_Store
+Hospital/.idea/.idea.Hospital/.idea/workspace.xml
+Hospital/.DS_Store
+Hospital/Hospital.Domain/.DS_Store
+Hospital/Hospital.Domain/.DS_Store
