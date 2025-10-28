@@ -23,5 +23,5 @@ public enum BloodGroup
     //<summary>
     //AB blood group
     //</summary>
-    Ab
+    AB
 }

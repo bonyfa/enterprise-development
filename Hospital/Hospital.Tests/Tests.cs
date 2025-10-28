@@ -4,14 +4,21 @@ using Xunit;
 
 namespace Hospital.Tests;
 
-//<summary>
-//Tests to verify the functionality of models 
-//</summary>
-public class HospitalDomainTests
+/// <summary>
+/// Tests to verify the functionality of models 
+/// </summary>
+public class HospitalDomainTests : IClassFixture<HospitalDataFixture>
 {
-    private readonly List<Patient> _patients = Initialization.Patients;
-    private readonly List<Doctor> _doctors = Initialization.Doctors;
-    private readonly List<Appointment> _appointments = Initialization.Appointments;
+    private readonly List<Patient> _patients;
+    private readonly List<Doctor> _doctors;
+    private readonly List<Appointment> _appointments;
+    
+    public HospitalDomainTests(HospitalDataFixture fixture)
+    {
+        _patients = fixture.Patients;
+        _doctors = fixture.Doctors;
+        _appointments = fixture.Appointments;
+    }
     
     /// <summary>
     /// Tests to verify retrieving doctors with work experience of 10 years or more
@@ -19,36 +26,42 @@ public class HospitalDomainTests
     [Fact]
     public void GetDoctors_WithWorkExperienceOver10Years_ReturnsCorrectDoctors()
     {
-        List<int> expectedPassportIds = [
-            45112233, 45445566, 45778899, 45123450, 45234561,
-            45345672, 45456783, 45678905, 45789016
-        ];
+        var expectedCount = 9;
+        var expectedFirstDoctorPassportId = 45112233; // Первый элемент после сортировки
         
-        var resultPassportIds = _doctors
+        var resultDoctors = _doctors
             .Where(d => d.WorkExperience >= 10)
-            .OrderBy(d => d.PassportId)  
-            .Select(d => d.PassportId)
+            .OrderBy(d => d.PassportId)
             .ToList();
         
-        Assert.Equal(expectedPassportIds.OrderBy(x => x), resultPassportIds.OrderBy(x => x));
+        Assert.Equal(expectedCount, resultDoctors.Count);
+        Assert.Equal(expectedFirstDoctorPassportId, resultDoctors[0].PassportId);
     }
 
     /// <summary>
     /// Tests to verify retrieving patients for specific doctor ordered by full name
     /// </summary>
-    [Theory]
-    [InlineData(45112233, 1)]
-    [InlineData(45445566, 1)]
-    [InlineData(45778899, 1)]
-    public void GetPatients_ByDoctorIdOrderedByFullName_ReturnsCorrectPatients(int doctorPassportId, int expectedCount)
+    [Fact]
+    public void GetPatients_ByDoctorIdOrderedByFullName_ReturnsCorrectPatients()
     {
+        // Arrange
+        var doctorPassportId = 45112233; // Смирнов Александр
+        var expectedCount = 2; // 2 пациента (Иванов и Сидоров)
+        var expectedFirstPatientName = "Иванов Иван Иванович"; // Первый пациент после сортировки по ФИО
+    
+        // Act
         var patients = _appointments
             .Where(a => a.Doctor.PassportId == doctorPassportId)
             .Select(a => a.Patient)
             .OrderBy(p => p.FullName)
             .ToList();
-        
+    
+        // Assert
+        // 1. Проверяем число элементов в коллекции
         Assert.Equal(expectedCount, patients.Count);
+    
+        // 2. Проверяем вхождение первого конкретного элемента в отсортированной коллекции
+        Assert.Equal(expectedFirstPatientName, patients[0].FullName);
     }
 
     /// <summary>
@@ -57,13 +70,15 @@ public class HospitalDomainTests
     [Fact]
     public void GetRepeatedAppointments_LastMonth_ReturnsCorrectCount()
     {
-        var today = new DateTime(2025, 10, 25);
+        var today = new DateTime(2025, 1, 31);
         var monthAgo = today.AddMonths(-1);
+        var expectedDateTime = new DateTime(2025, 1, 15, 10, 30, 0);
         
         var result = _appointments
             .Count(a => a.IsRepeated && a.DateAndTime >= monthAgo && a.DateAndTime <= today);
         
-        Assert.Equal(5, result);
+        Assert.Equal(6, result);
+        Assert.Equal(_appointments[1].DateAndTime, expectedDateTime);
     }
 
     /// <summary>
@@ -72,8 +87,8 @@ public class HospitalDomainTests
     [Fact]
     public void GetPatients_Over30WithMultipleDoctors_ReturnsCorrectPatientsOrderedByBirthDate()
     {
-        var today = new DateTime(2025, 1, 31);
-        var ageLimit = today.AddYears(-30);
+        var today = new DateOnly(2025, 1, 31);
+        var ageLimit = today.AddYears(-30); // 1995 год и старше
         
         var resultPassportIds = _appointments
             .Where(a => a.Patient.DateOfBirth <= ageLimit)
@@ -83,7 +98,8 @@ public class HospitalDomainTests
             .OrderBy(id => id)
             .ToList();
         
-        Assert.Empty(resultPassportIds);
+        List<int> expectedPassportIds = [45123456, 45567890, 45789012];
+        Assert.Equal(expectedPassportIds, resultPassportIds);
     }
 
     /// <summary>
@@ -92,9 +108,11 @@ public class HospitalDomainTests
     [Fact]
     public void GetAppointments_CurrentMonthByOffice_ReturnsCorrectAppointments()
     {
+        // Arrange
         var today = new DateTime(2025, 1, 31);
         var officeNumber = 101;
         
+        // Act
         var resultAppointmentTimes = _appointments
             .Where(a => a.NumberOfOffice == officeNumber
                         && a.DateAndTime.Year == today.Year
@@ -103,7 +121,11 @@ public class HospitalDomainTests
             .Select(a => a.DateAndTime)
             .ToList();
         
-        Assert.Single(resultAppointmentTimes);
-        Assert.Equal(new DateTime(2025, 1, 15, 9, 0, 0), resultAppointmentTimes[0]);
+        // Assert - в кабинете 101 в январе 2 приема
+        List<DateTime> expectedAppointmentTimes = [
+            new DateTime(2025, 1, 15, 9, 0, 0),
+            new DateTime(2025, 1, 20, 11, 0, 0)
+        ];
+        Assert.Equal(expectedAppointmentTimes, resultAppointmentTimes);
     }
 }

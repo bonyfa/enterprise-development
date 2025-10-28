@@ -24,18 +24,4 @@ public class Person
     /// </summary>
     public required DateOnly DateOfBirth { get; set; }
     
-    /// <summary>
-    /// Phone number of the person
-    /// </summary>
-    public string? PhoneNumber { get; set; }
-    
-    //<summary>
-    //FullName of person
-    //</summary>
-    public Gender? Gender { get; set; }
-    
-    //<summary>
-    //Address of the person
-    //</summary>
-    public string? Address { get; set; }
 }
