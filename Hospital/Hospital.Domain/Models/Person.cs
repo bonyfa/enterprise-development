@@ -5,7 +5,7 @@ public class Person
     /// <summary>
     /// Unique ID of person (GUID)
     /// </summary>
-    public required Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; } = Guid.NewGuid();
     
     /// <summary>
     /// Unique passport id of person

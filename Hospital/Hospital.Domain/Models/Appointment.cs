@@ -8,7 +8,7 @@ public class Appointment
     /// <summary>
     /// Unique ID of appointment (GUID)
     /// </summary>
-    public required Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; } = Guid.NewGuid();
     
     /// <summary>
     /// Date and time of appointment
