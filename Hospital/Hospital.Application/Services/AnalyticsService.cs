@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Hospital.Application.Contracts;
+using Hospital.Application.Contracts.Appointments;
 using Hospital.Application.Contracts.Doctors;
 using Hospital.Application.Contracts.Patients;
 using Hospital.Models;
@@ -66,18 +67,20 @@ public sealed class AnalyticsService(
     }
 
     /// <inheritdoc />
-    public async Task<IReadOnlyList<int>> GetPatientPassportIdsOverAgeWithMultipleDoctors(DateOnly today, int minAgeYears)
+    public async Task<IReadOnlyList<PatientDto>> GetPatientsOverAgeWithMultipleDoctorsAsync(DateOnly today, int minAgeYears)
     {
         var ageLimit = today.AddYears(-minAgeYears);
 
         var patients = await patientRepository.ReadAll();
-        var eligibleIds = patients
-            .Where(p => p.DateOfBirth <= ageLimit)
-            .Select(p => p.Id)
-            .ToHashSet();
 
-        if (eligibleIds.Count == 0)
+        var eligiblePatients = patients
+            .Where(p => p.DateOfBirth <= ageLimit)
+            .ToList();
+
+        if (eligiblePatients.Count == 0)
             return [];
+
+        var eligibleIds = eligiblePatients.Select(p => p.Id).ToHashSet();
 
         var appointments = await appointmentRepository.ReadAll();
 
@@ -91,14 +94,14 @@ public sealed class AnalyticsService(
         if (multiDoctorPatientIds.Count == 0)
             return [];
 
-        return [.. patients
+        return [.. eligiblePatients
             .Where(p => multiDoctorPatientIds.Contains(p.Id))
-            .Select(p => p.PassportId)
-            .OrderBy(id => id)];
+            .OrderBy(p => p.DateOfBirth)
+            .Select(mapper.Map<PatientDto>)];
     }
 
     /// <inheritdoc />
-    public async Task<IReadOnlyList<DateTime>> GetAppointmentTimesByOfficeInMonth(int officeNumber, int year, int month)
+    public async Task<IReadOnlyList<AppointmentDto>> GetAppointmentsByOfficeInMonthAsync(int officeNumber, int year, int month)
     {
         var appointments = await appointmentRepository.ReadAll();
 
@@ -107,6 +110,6 @@ public sealed class AnalyticsService(
                         a.DateAndTime.Year == year &&
                         a.DateAndTime.Month == month)
             .OrderBy(a => a.DateAndTime)
-            .Select(a => a.DateAndTime)];
+            .Select(mapper.Map<AppointmentDto>)];
     }
 }
