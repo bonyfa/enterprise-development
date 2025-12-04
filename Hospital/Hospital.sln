@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Domain", "Hospital.Domain\Hospital.Domain.csproj", "{FA0DC195-997D-4312-944C-C5AC1AEB6FF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Tests", "Hospital.Tests\Hospital.Tests.csproj", "{56F579BF-DC82-4055-A570-4DAA87877905}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Infrastructure.EfCore", "Hospital.Infrastructure.EfCore\Hospital.Infrastructure.EfCore.csproj", "{25F809F5-184B-435A-AE17-1D819325D4B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,15 @@ Global
 		{56F579BF-DC82-4055-A570-4DAA87877905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56F579BF-DC82-4055-A570-4DAA87877905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56F579BF-DC82-4055-A570-4DAA87877905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25F809F5-184B-435A-AE17-1D819325D4B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25F809F5-184B-435A-AE17-1D819325D4B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25F809F5-184B-435A-AE17-1D819325D4B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25F809F5-184B-435A-AE17-1D819325D4B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C589F9DC-26D7-4EE9-AAC0-6CFB20DC06F9}
 	EndGlobalSection
 EndGlobal

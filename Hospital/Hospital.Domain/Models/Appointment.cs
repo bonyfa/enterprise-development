@@ -24,14 +24,24 @@ public class Appointment
     /// First or not appointment
     /// </summary>
     public required bool IsRepeated { get; set; }
-    
+
+    /// <summary>
+    /// Foreign key to Patient
+    /// </summary>
+    public required Guid PatientId { get; set; }
+
+    /// <summary>
+    /// Foreign key to Doctor
+    /// </summary>
+    public required Guid DoctorId { get; set; }
+
     /// <summary>
     /// Patient with an appointment 
     /// </summary>
-    public required Patient Patient { get; set; }
-    
+    public Patient? Patient { get; set; }
+
     /// <summary>
     /// Doctor receiving an appointment
     /// </summary>
-    public required Doctor Doctor { get; set; }
+    public Doctor? Doctor { get; set; }
 }

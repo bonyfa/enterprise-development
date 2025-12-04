@@ -5,11 +5,15 @@ namespace Hospital.Models;
 /// </summary>
 public class Doctor : Person
 {
-    
+    /// <summary>
+    /// Foreign key to Specialization
+    /// </summary>
+    public required Guid SpecializationId { get; set; }
+
     /// <summary>
     /// Specialization of doctor
     /// </summary>
-    public required Specialization Specialization { get; set; }
+    public Specialization? Specialization { get; set; }
     
     /// <summary>
     /// WorkExperience of doctor
