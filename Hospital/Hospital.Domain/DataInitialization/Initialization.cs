@@ -1,4 +1,4 @@
-using Hospital.Enums;
+using Hospital.Domain.Shared.Enums;
 using Hospital.Models;
 
 namespace Hospital.DataInitialization;

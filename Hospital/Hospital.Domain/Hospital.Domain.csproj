@@ -7,4 +7,8 @@
         <RootNamespace>Hospital</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Hospital.Domain.Shared\Hospital.Domain.Shared.csproj" />
+    </ItemGroup>
+
 </Project>
