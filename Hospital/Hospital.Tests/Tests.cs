@@ -1,25 +1,12 @@
-﻿using Hospital.DataInitialization;
-using Hospital.Models;
-using Xunit;
+﻿using Xunit;
 
 namespace Hospital.Tests;
 
 /// <summary>
 /// Tests to verify the functionality of models 
 /// </summary>
-public class HospitalDomainTests : IClassFixture<HospitalDataFixture>
+public class HospitalDomainTests(HospitalDataFixture fixture) : IClassFixture<HospitalDataFixture>
 {
-    private readonly List<Patient> _patients;
-    private readonly List<Doctor> _doctors;
-    private readonly List<Appointment> _appointments;
-    
-    public HospitalDomainTests(HospitalDataFixture fixture)
-    {
-        _patients = fixture.Patients;
-        _doctors = fixture.Doctors;
-        _appointments = fixture.Appointments;
-    }
-    
     /// <summary>
     /// Tests to verify retrieving doctors with work experience of 10 years or more
     /// </summary>
@@ -29,7 +16,7 @@ public class HospitalDomainTests : IClassFixture<HospitalDataFixture>
         var expectedCount = 9;
         var expectedFirstDoctorPassportId = 45112233; // Первый элемент после сортировки
         
-        var resultDoctors = _doctors
+        var resultDoctors = fixture.Doctors
             .Where(d => d.WorkExperience >= 10)
             .OrderBy(d => d.PassportId)
             .ToList();
@@ -50,7 +37,7 @@ public class HospitalDomainTests : IClassFixture<HospitalDataFixture>
         var expectedFirstPatientName = "Иванов Иван Иванович"; // Первый пациент после сортировки по ФИО
     
         // Act
-        var patients = _appointments
+        var patients = fixture.Appointments
             .Where(a => a.Doctor.PassportId == doctorPassportId)
             .Select(a => a.Patient)
             .OrderBy(p => p.FullName)
@@ -74,11 +61,11 @@ public class HospitalDomainTests : IClassFixture<HospitalDataFixture>
         var monthAgo = today.AddMonths(-1);
         var expectedDateTime = new DateTime(2025, 1, 15, 10, 30, 0);
         
-        var result = _appointments
+        var result = fixture.Appointments
             .Count(a => a.IsRepeated && a.DateAndTime >= monthAgo && a.DateAndTime <= today);
         
         Assert.Equal(6, result);
-        Assert.Equal(_appointments[1].DateAndTime, expectedDateTime);
+        Assert.Equal(fixture.Appointments[1].DateAndTime, expectedDateTime);
     }
 
     /// <summary>
@@ -90,7 +77,7 @@ public class HospitalDomainTests : IClassFixture<HospitalDataFixture>
         var today = new DateOnly(2025, 1, 31);
         var ageLimit = today.AddYears(-30); // 1995 год и старше
         
-        var resultPassportIds = _appointments
+        var resultPassportIds = fixture.Appointments
             .Where(a => a.Patient.DateOfBirth <= ageLimit)
             .GroupBy(a => a.Patient.PassportId)
             .Where(g => g.Select(a => a.Doctor.PassportId).Distinct().Count() > 1)
@@ -113,7 +100,7 @@ public class HospitalDomainTests : IClassFixture<HospitalDataFixture>
         var officeNumber = 101;
         
         // Act
-        var resultAppointmentTimes = _appointments
+        var resultAppointmentTimes = fixture.Appointments
             .Where(a => a.NumberOfOffice == officeNumber
                         && a.DateAndTime.Year == today.Year
                         && a.DateAndTime.Month == today.Month)

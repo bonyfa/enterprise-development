@@ -11,8 +11,8 @@ public static class Initialization
     /// <summary>
     /// Generate data list for Specializations
     /// </summary>
-    public static List<Specialization> Specializations => new List<Specialization>
-    {
+    public static List<Specialization> Specializations =>
+    [
         new Specialization { Id = Guid.NewGuid(), Name = "Терапевт" },
         new Specialization { Id = Guid.NewGuid(), Name = "Хирург" },
         new Specialization { Id = Guid.NewGuid(), Name = "Дерматовенеролог" },
@@ -23,13 +23,13 @@ public static class Initialization
         new Specialization { Id = Guid.NewGuid(), Name = "Анестезиолог" },
         new Specialization { Id = Guid.NewGuid(), Name = "Вирусолог" },
         new Specialization { Id = Guid.NewGuid(), Name = "Ортопед" }
-    };
+    ];
 
     /// <summary>
     /// Generate data list for Patients
     /// </summary>
-    public static List<Patient> Patients => new List<Patient>
-    {
+    public static List<Patient> Patients =>
+    [
         new Patient
         {
             Id = Guid.NewGuid(),
@@ -150,13 +150,13 @@ public static class Initialization
             RhesusFactor = RhesusFactor.Positive,
             PhoneNumber = "+7 (342) 012-34-56"
         }
-    };
+    ];
 
     /// <summary>
     /// Generate data list for Doctors
     /// </summary>
-    public static List<Doctor> Doctors => new List<Doctor>
-    {
+    public static List<Doctor> Doctors =>
+    [
         new Doctor
         {
             Id = Guid.NewGuid(),
@@ -247,13 +247,13 @@ public static class Initialization
             Specialization = Specializations[9],
             WorkExperience = 14
         }
-    };
+    ];
 
     /// <summary>
     /// Generate data list for Appointment
     /// </summary>
-    public static List<Appointment> Appointments => new List<Appointment>
-    {
+    public static List<Appointment> Appointments =>
+    [
         new Appointment
         {
             Id = Guid.NewGuid(),
@@ -371,5 +371,5 @@ public static class Initialization
             Patient = Patients[4],
             Doctor = Doctors[8]
         }
-    };
+    ];
 }    

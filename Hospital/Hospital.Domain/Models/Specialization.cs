@@ -1,8 +1,8 @@
 namespace Hospital.Models;
 
-//<summary>
-//Model that describe Specialization
-//</summary>
+/// <summary>
+/// Model that describe Specialization
+/// </summary>
 public class Specialization
 {
     /// <summary>
@@ -10,8 +10,8 @@ public class Specialization
     /// </summary>
     public required Guid Id { get; set; } = Guid.NewGuid();
     
-    //<summary>
-    //Name and key of Specialization
-    //</summary>
+    /// <summary>
+    /// Name and key of Specialization
+    /// </summary>
     public required string Name { get; set; }
 }

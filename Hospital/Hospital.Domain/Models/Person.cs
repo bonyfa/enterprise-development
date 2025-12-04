@@ -1,5 +1,3 @@
-using Hospital.Enums;
-
 namespace Hospital.Models;
 
 public class Person
