@@ -4,6 +4,9 @@ using Hospital.Application.Contracts.Patients;
 
 namespace Hospital.Application.Contracts;
 
+/// <summary>
+/// Application service that provides analytical queries over hospital data
+/// </summary>
 public interface IAnalyticsService
 {
     /// <summary>
