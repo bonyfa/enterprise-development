@@ -11,7 +11,7 @@ public interface IAnalyticsService
     /// </summary>
     /// <param name="minYears">Minimum work experience in years</param>
     /// <returns>List of doctors ordered by passport id</returns>
-    public Task<IReadOnlyList<DoctorDto>> GetDoctorsByMinWorkExperienceAsync(int minYears);
+    public Task<IReadOnlyList<DoctorDto>> GetDoctorsByMinWorkExperience(int minYears);
 
     /// <summary>
     /// Returns patients who have appointments with the specified doctor ordered by full name
@@ -34,7 +34,7 @@ public interface IAnalyticsService
     /// <param name="today">Current date used to calculate age</param>
     /// <param name="minAgeYears">Minimum age in years</param>
     /// <returns>List of patients ordered by date of birth</returns>
-    public Task<IReadOnlyList<PatientDto>> GetPatientsOverAgeWithMultipleDoctorsAsync(DateOnly today, int minAgeYears);
+    public Task<IReadOnlyList<PatientDto>> GetPatientsOverAgeWithMultipleDoctors(DateOnly today, int minAgeYears);
 
     /// <summary>
     /// Returns appointments for a given office and month ordered by date and time
@@ -43,5 +43,5 @@ public interface IAnalyticsService
     /// <param name="year">Year of month</param>
     /// <param name="month">Month number 1 to 12</param>
     /// <returns>List of appointments ordered ascending</returns>
-    public Task<IReadOnlyList<AppointmentDto>> GetAppointmentsByOfficeInMonthAsync(int officeNumber, int year, int month);
+    public Task<IReadOnlyList<AppointmentDto>> GetAppointmentsByOfficeInMonth(int officeNumber, int year, int month);
 }

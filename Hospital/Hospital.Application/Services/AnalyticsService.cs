@@ -22,7 +22,7 @@ public sealed class AnalyticsService(
 ) : IAnalyticsService
 {
     /// <inheritdoc />
-    public async Task<IReadOnlyList<DoctorDto>> GetDoctorsByMinWorkExperienceAsync(int minYears)
+    public async Task<IReadOnlyList<DoctorDto>> GetDoctorsByMinWorkExperience(int minYears)
     {
         var doctors = await doctorRepository.ReadAll();
 
@@ -67,7 +67,7 @@ public sealed class AnalyticsService(
     }
 
     /// <inheritdoc />
-    public async Task<IReadOnlyList<PatientDto>> GetPatientsOverAgeWithMultipleDoctorsAsync(DateOnly today, int minAgeYears)
+    public async Task<IReadOnlyList<PatientDto>> GetPatientsOverAgeWithMultipleDoctors(DateOnly today, int minAgeYears)
     {
         var ageLimit = today.AddYears(-minAgeYears);
 
@@ -101,7 +101,7 @@ public sealed class AnalyticsService(
     }
 
     /// <inheritdoc />
-    public async Task<IReadOnlyList<AppointmentDto>> GetAppointmentsByOfficeInMonthAsync(int officeNumber, int year, int month)
+    public async Task<IReadOnlyList<AppointmentDto>> GetAppointmentsByOfficeInMonth(int officeNumber, int year, int month)
     {
         var appointments = await appointmentRepository.ReadAll();
 

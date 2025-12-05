@@ -4,18 +4,18 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Aspire.MongoDB.Driver" Version="13.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hospital.Application\Hospital.Application.csproj" />
+    <ProjectReference Include="..\Hospital.Infrastructure.EfCore\Hospital.Infrastructure.EfCore.csproj" />
     <ProjectReference Include="..\Hospital.ServiceDefaults\Hospital.ServiceDefaults.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
