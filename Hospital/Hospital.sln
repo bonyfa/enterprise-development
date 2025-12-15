@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36717.8 d17.14
+VisualStudioVersion = 17.14.36717.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Domain", "Hospital.Domain\Hospital.Domain.csproj", "{FA0DC195-997D-4312-944C-C5AC1AEB6FF0}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.AppHost", "Hospital.AppHost\Hospital.AppHost.csproj", "{3DBC40DC-D145-48F2-A812-3A2B612AEE84}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.ServiceDefaults", "Hospital.ServiceDefaults\Hospital.ServiceDefaults.csproj", "{02EA8A8F-919E-94A9-23FF-E7C7B1CBA365}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Infrastructure.Kafka", "Hospital.Infrastructure.Kafka\Hospital.Infrastructure.Kafka.csproj", "{091364DE-260D-41FC-9269-4694F6DAE1A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{02EA8A8F-919E-94A9-23FF-E7C7B1CBA365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02EA8A8F-919E-94A9-23FF-E7C7B1CBA365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02EA8A8F-919E-94A9-23FF-E7C7B1CBA365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{091364DE-260D-41FC-9269-4694F6DAE1A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{091364DE-260D-41FC-9269-4694F6DAE1A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{091364DE-260D-41FC-9269-4694F6DAE1A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{091364DE-260D-41FC-9269-4694F6DAE1A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
