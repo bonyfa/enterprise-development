@@ -9,6 +9,8 @@ using Hospital.Application.Services;
 using Hospital.DataInitialization;
 using Hospital.Infrastructure.EfCore;
 using Hospital.Infrastructure.EfCore.Repositories;
+using Hospital.Infrastructure.Kafka;
+using Hospital.Infrastructure.Kafka.Deserializers;
 using Hospital.Models;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
@@ -64,6 +66,20 @@ builder.Services.AddDbContext<HospitalDbContext>((services, o) =>
     var db = services.GetRequiredService<IMongoDatabase>();
     o.UseMongoDB(db.Client, db.DatabaseNamespace.DatabaseName);
 });
+
+builder.Services.AddHostedService<HospitalKafkaConsumer>();
+builder.AddKafkaConsumer<Guid, IList<AppointmentCreateUpdateDto>>("hospital-kafka",
+    configureBuilder: builder =>
+    {
+        builder.SetKeyDeserializer(new HospitalKeyDeserializer());
+        builder.SetValueDeserializer(new HospitalValueDeserializer());
+    },
+    configureSettings: settings =>
+    {
+        settings.Config.GroupId = "hospital-consumer";
+        settings.Config.AutoOffsetReset = Confluent.Kafka.AutoOffsetReset.Earliest;
+    }
+);
 
 var app = builder.Build();
 

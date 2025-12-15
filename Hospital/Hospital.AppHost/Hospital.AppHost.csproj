@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hospital.Api.Host\Hospital.Api.Host.csproj" />
+    <ProjectReference Include="..\Hospital.Generator.Kafka.Host\Hospital.Generator.Kafka.Host.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,16 +13,16 @@ public static class Initialization
     /// </summary>
     public static readonly List<Specialization> Specializations =
     [
-        new Specialization { Name = "Терапевт" },
-        new Specialization { Name = "Хирург" },
-        new Specialization { Name = "Дерматовенеролог" },
-        new Specialization { Name = "Офтальмолог" },
-        new Specialization { Name = "Уролог" },
-        new Specialization { Name = "Гинеколог" },
-        new Specialization { Name = "Рентгенолог" },
-        new Specialization { Name = "Анестезиолог" },
-        new Specialization { Name = "Вирусолог" },
-        new Specialization { Name = "Ортопед" }
+        new Specialization { Id = Guid.Parse("11111111-1111-1111-1111-111111111101"), Name = "Терапевт" },
+        new Specialization { Id = Guid.Parse("11111111-1111-1111-1111-111111111102"), Name = "Хирург" },
+        new Specialization { Id = Guid.Parse("11111111-1111-1111-1111-111111111103"), Name = "Дерматовенеролог" },
+        new Specialization { Id = Guid.Parse("11111111-1111-1111-1111-111111111104"), Name = "Офтальмолог" },
+        new Specialization { Id = Guid.Parse("11111111-1111-1111-1111-111111111105"), Name = "Уролог" },
+        new Specialization { Id = Guid.Parse("11111111-1111-1111-1111-111111111106"), Name = "Гинеколог" },
+        new Specialization { Id = Guid.Parse("11111111-1111-1111-1111-111111111107"), Name = "Рентгенолог" },
+        new Specialization { Id = Guid.Parse("11111111-1111-1111-1111-111111111108"), Name = "Анестезиолог" },
+        new Specialization { Id = Guid.Parse("11111111-1111-1111-1111-111111111109"), Name = "Вирусолог" },
+        new Specialization { Id = Guid.Parse("11111111-1111-1111-1111-111111111110"), Name = "Ортопед" }
     ];
 
     /// <summary>
@@ -32,6 +32,7 @@ public static class Initialization
     [
         new Patient
         {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222201"),
             PassportId = 45123456,
             FullName = "Иванов Иван Иванович",
             Gender = Gender.Male,
@@ -43,6 +44,7 @@ public static class Initialization
         },
         new Patient
         {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222202"),
             PassportId = 45987654,
             FullName = "Петрова Анна Сергеевна",
             Gender = Gender.Female,
@@ -54,6 +56,7 @@ public static class Initialization
         },
         new Patient
         {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222203"),
             PassportId = 45567890,
             FullName = "Сидоров Алексей Петрович",
             Gender = Gender.Male,
@@ -65,6 +68,7 @@ public static class Initialization
         },
         new Patient
         {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222204"),
             PassportId = 45345678,
             FullName = "Козлова Мария Владимировна",
             Gender = Gender.Female,
@@ -76,6 +80,7 @@ public static class Initialization
         },
         new Patient
         {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222205"),
             PassportId = 45789012,
             FullName = "Федоров Дмитрий Николаевич",
             Gender = Gender.Male,
@@ -87,6 +92,7 @@ public static class Initialization
         },
         new Patient
         {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222206"),
             PassportId = 45456789,
             FullName = "Николаева Ольга Игоревна",
             Gender = Gender.Female,
@@ -98,6 +104,7 @@ public static class Initialization
         },
         new Patient
         {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222207"),
             PassportId = 45678901,
             FullName = "Волков Сергей Александрович",
             Gender = Gender.Male,
@@ -109,6 +116,7 @@ public static class Initialization
         },
         new Patient
         {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222208"),
             PassportId = 45234567,
             FullName = "Смирнова Екатерина Дмитриевна",
             Gender = Gender.Female,
@@ -120,6 +128,7 @@ public static class Initialization
         },
         new Patient
         {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222209"),
             PassportId = 45890123,
             FullName = "Попов Андрей Викторович",
             Gender = Gender.Male,
@@ -131,6 +140,7 @@ public static class Initialization
         },
         new Patient
         {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222210"),
             PassportId = 45561234,
             FullName = "Лебедева Татьяна Павловна",
             Gender = Gender.Female,
@@ -149,6 +159,7 @@ public static class Initialization
     [
         new Doctor
         {
+            Id = Guid.Parse("33333333-3333-3333-3333-333333333301"),
             PassportId = 45112233,
             FullName = "Смирнов Александр Иванович",
             DateOfBirth = new DateOnly(1975, 5, 15),
@@ -157,6 +168,7 @@ public static class Initialization
         },
         new Doctor
         {
+            Id = Guid.Parse("33333333-3333-3333-3333-333333333302"),
             PassportId = 45445566,
             FullName = "Петрова Елена Викторовна",
             DateOfBirth = new DateOnly(1980, 8, 22),
@@ -165,6 +177,7 @@ public static class Initialization
         },
         new Doctor
         {
+            Id = Guid.Parse("33333333-3333-3333-3333-333333333303"),
             PassportId = 45778899,
             FullName = "Козлов Дмитрий Сергеевич",
             DateOfBirth = new DateOnly(1978, 3, 10),
@@ -173,6 +186,7 @@ public static class Initialization
         },
         new Doctor
         {
+            Id = Guid.Parse("33333333-3333-3333-3333-333333333304"),
             PassportId = 45123450,
             FullName = "Иванова Ольга Николаевна",
             DateOfBirth = new DateOnly(1985, 11, 5),
@@ -181,6 +195,7 @@ public static class Initialization
         },
         new Doctor
         {
+            Id = Guid.Parse("33333333-3333-3333-3333-333333333305"),
             PassportId = 45234561,
             FullName = "Федоров Максим Андреевич",
             DateOfBirth = new DateOnly(1970, 7, 30),
@@ -189,6 +204,7 @@ public static class Initialization
         },
         new Doctor
         {
+            Id = Guid.Parse("33333333-3333-3333-3333-333333333306"),
             PassportId = 45345672,
             FullName = "Николаева Светлана Петровна",
             DateOfBirth = new DateOnly(1982, 1, 18),
@@ -197,6 +213,7 @@ public static class Initialization
         },
         new Doctor
         {
+            Id = Guid.Parse("33333333-3333-3333-3333-333333333307"),
             PassportId = 45456783,
             FullName = "Волков Артем Игоревич",
             DateOfBirth = new DateOnly(1973, 9, 8),
@@ -205,6 +222,7 @@ public static class Initialization
         },
         new Doctor
         {
+            Id = Guid.Parse("33333333-3333-3333-3333-333333333308"),
             PassportId = 45567894,
             FullName = "Семенова Анна Дмитриевна",
             DateOfBirth = new DateOnly(1988, 4, 25),
@@ -213,6 +231,7 @@ public static class Initialization
         },
         new Doctor
         {
+            Id = Guid.Parse("33333333-3333-3333-3333-333333333309"),
             PassportId = 45678905,
             FullName = "Павлов Сергей Владимирович",
             DateOfBirth = new DateOnly(1976, 12, 12),
@@ -221,6 +240,7 @@ public static class Initialization
         },
         new Doctor
         {
+            Id = Guid.Parse("33333333-3333-3333-3333-333333333310"),
             PassportId = 45789016,
             FullName = "Морозова Ирина Александровна",
             DateOfBirth = new DateOnly(1983, 6, 7),
@@ -236,6 +256,7 @@ public static class Initialization
     [
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444401"),
             DateAndTime = new DateTime(2025, 1, 15, 9, 0, 0),
             NumberOfOffice = 101,
             IsRepeated = false,
@@ -244,6 +265,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444402"),
             DateAndTime = new DateTime(2025, 1, 15, 10, 30, 0),
             NumberOfOffice = 205,
             IsRepeated = true,
@@ -252,6 +274,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444403"),
             DateAndTime = new DateTime(2025, 1, 16, 11, 0, 0),
             NumberOfOffice = 312,
             IsRepeated = false,
@@ -260,6 +283,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444404"),
             DateAndTime = new DateTime(2025, 1, 16, 14, 15, 0),
             NumberOfOffice = 118,
             IsRepeated = true,
@@ -268,6 +292,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444405"),
             DateAndTime = new DateTime(2025, 1, 17, 8, 45, 0),
             NumberOfOffice = 224,
             IsRepeated = false,
@@ -276,6 +301,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444406"),
             DateAndTime = new DateTime(2025, 1, 17, 13, 20, 0),
             NumberOfOffice = 307,
             IsRepeated = true,
@@ -284,6 +310,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444407"),
             DateAndTime = new DateTime(2025, 1, 18, 10, 0, 0),
             NumberOfOffice = 201,
             IsRepeated = false,
@@ -292,6 +319,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444408"),
             DateAndTime = new DateTime(2025, 1, 18, 15, 30, 0),
             NumberOfOffice = 415,
             IsRepeated = true,
@@ -300,6 +328,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444409"),
             DateAndTime = new DateTime(2025, 1, 19, 9, 30, 0),
             NumberOfOffice = 108,
             IsRepeated = false,
@@ -308,6 +337,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444410"),
             DateAndTime = new DateTime(2025, 1, 19, 16, 0, 0),
             NumberOfOffice = 303,
             IsRepeated = true,
@@ -316,6 +346,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444411"),
             DateAndTime = new DateTime(2025, 1, 20, 11, 0, 0),
             NumberOfOffice = 101,
             IsRepeated = false,
@@ -324,6 +355,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444412"),
             DateAndTime = new DateTime(2025, 1, 21, 14, 0, 0),
             NumberOfOffice = 205,
             IsRepeated = true,
@@ -332,6 +364,7 @@ public static class Initialization
         },
         new Appointment
         {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444413"),
             DateAndTime = new DateTime(2025, 1, 22, 10, 0, 0),
             NumberOfOffice = 312,
             IsRepeated = false,

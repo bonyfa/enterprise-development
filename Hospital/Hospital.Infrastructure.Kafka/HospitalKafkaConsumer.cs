@@ -14,78 +14,87 @@ namespace Hospital.Infrastructure.Kafka;
 /// <param name="scopeFactory">Service scope factory used to resolve scoped services</param>
 /// <param name="configuration">Application configuration used to read Kafka settings</param>
 /// <param name="logger">Logger instance</param>
-public class HospitalKafkaConsumer(
-    IConsumer<Guid, IList<AppointmentCreateUpdateDto>> consumer, 
-    IServiceScopeFactory scopeFactory, 
-    IConfiguration configuration, 
+public sealed class HospitalKafkaConsumer(
+    IConsumer<Guid, IList<AppointmentCreateUpdateDto>> consumer,
+    IServiceScopeFactory scopeFactory,
+    IConfiguration configuration,
     ILogger<HospitalKafkaConsumer> logger) : BackgroundService
 {
-    private readonly string _topicName = configuration.GetSection("Kafka")["TopicName"] ?? throw new KeyNotFoundException("TopicName section of Kafka is missing");
+    private readonly string _topicName =
+        configuration.GetSection("Kafka")["TopicName"] ?? throw new KeyNotFoundException("TopicName section of Kafka is missing");
 
     /// <summary>
     /// Starts consumer execution loop
     /// </summary>
     /// <param name="stoppingToken">Cancellation token</param>
-    /// <returns>Task representing background execution</returns>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        stoppingToken.ThrowIfCancellationRequested();
-
         await Task.Yield();
-        await Consume(stoppingToken);
-    }
 
-    private async Task Consume(CancellationToken stoppingToken)
-    {
-        consumer.Subscribe(_topicName);
-        logger.LogInformation("Consumer successfully subscribed to topic {topic}", _topicName);
+        try
+        {
+            consumer.Subscribe(_topicName);
+            logger.LogInformation("Consumer successfully subscribed to topic {topic}", _topicName);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to subscribe consumer {consumer} to topic {topic}", consumer.Name, _topicName);
+            return;
+        }
 
         try
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                ConsumeResult<Guid, IList<AppointmentCreateUpdateDto>>? consumeResult;
-
                 try
                 {
-                    consumeResult = consumer.Consume(stoppingToken);
+                    var consumeResult = consumer.Consume(stoppingToken);
+
+                    if (consumeResult?.Message?.Value is null || consumeResult.Message.Value.Count == 0)
+                        continue;
+
+                    logger.LogInformation(
+                        "Consumed message {key} from topic {topic} via consumer {consumer}",
+                        consumeResult.Message.Key, _topicName, consumer.Name);
+
+                    using var scope = scopeFactory.CreateScope();
+                    var appointmentService = scope.ServiceProvider.GetRequiredService<IAppointmentService>();
+
+                    foreach (var contract in consumeResult.Message.Value)
+                        await appointmentService.Create(contract);
+
+                    consumer.Commit(consumeResult);
+
+                    logger.LogInformation(
+                        "Successfully processed and committed message {key} from topic {topic} via consumer {consumer}",
+                        consumeResult.Message.Key, _topicName, consumer.Name);
+                }
+                catch (ConsumeException ex)
+                {
+                    logger.LogError(ex, "Kafka consume error from topic {topic} reason {reason}", _topicName, ex.Error.Reason);
+                    await Task.Delay(1000, stoppingToken);
                 }
                 catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
                 {
                     break;
                 }
-
-                if (consumeResult?.Message?.Value is null || consumeResult.Message.Value.Count == 0)
-                    continue;
-
-                logger.LogInformation("Consumed message {key} from topic {topic} via consumer {consumer}", consumeResult.Message.Key, _topicName, consumer.Name);
-
-                using var scope = scopeFactory.CreateScope();
-                var appointmentService = scope.ServiceProvider.GetRequiredService<IAppointmentService>();
-
-                try
-                {
-                    foreach (var contract in consumeResult.Message.Value)
-                    {
-                        await appointmentService.Create(contract);
-                    }
-
-                    consumer.Commit(consumeResult);
-                    logger.LogInformation("Successfully processed and committed message {key} from topic {topic} via consumer {consumer}", consumeResult.Message.Key, _topicName, consumer.Name);
-                }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "Failed to process message {key} from topic {topic} via consumer {consumer}", consumeResult.Message.Key, _topicName, consumer.Name);
+                    logger.LogError(ex, "Failed to consume or process message from topic {topic}", _topicName);
+                    await Task.Delay(1000, stoppingToken);
                 }
             }
         }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Exception occured during receiving contracts from {topic}", _topicName);
-        }
         finally
         {
-            consumer.Close();
+            try
+            {
+                consumer.Close();
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(ex, "Error during consumer close");
+            }
         }
     }
 }
