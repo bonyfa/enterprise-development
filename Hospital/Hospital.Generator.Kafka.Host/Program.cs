@@ -5,18 +5,6 @@ using Hospital.Generator.Kafka.Host.Serializers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddServiceDiscovery();
-
-var apiBaseUrl = builder.Configuration["Generator:ApiBaseUrl"];
-if (string.IsNullOrWhiteSpace(apiBaseUrl))
-    throw new InvalidOperationException("Generator:ApiBaseUrl is not configured");
-
-builder.Services.AddHttpClient("hospital-api", client =>
-{
-    client.BaseAddress = new Uri(apiBaseUrl);
-})
-.AddServiceDiscovery();
-
 builder.AddKafkaProducer<Guid, IList<AppointmentCreateUpdateDto>>(
     "hospital-kafka",
     kafkaBuilder =>

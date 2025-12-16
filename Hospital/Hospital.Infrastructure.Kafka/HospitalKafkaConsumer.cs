@@ -61,7 +61,16 @@ public sealed class HospitalKafkaConsumer(
                     var appointmentService = scope.ServiceProvider.GetRequiredService<IAppointmentService>();
 
                     foreach (var contract in consumeResult.Message.Value)
-                        await appointmentService.Create(contract);
+                    {
+                        try
+                        {
+                            await appointmentService.Create(contract);
+                        }
+                        catch (KeyNotFoundException ex)
+                        {
+                            logger.LogWarning(ex, "Skipping invalid appointment contract PatientId={patientId} DoctorId={doctorId}", contract.PatientId, contract.DoctorId);
+                        }
+                    }
 
                     consumer.Commit(consumeResult);
 
@@ -69,10 +78,10 @@ public sealed class HospitalKafkaConsumer(
                         "Successfully processed and committed message {key} from topic {topic} via consumer {consumer}",
                         consumeResult.Message.Key, _topicName, consumer.Name);
                 }
-                catch (ConsumeException ex)
+                catch (ConsumeException ex) when (ex.Error.Code == ErrorCode.UnknownTopicOrPart)
                 {
-                    logger.LogError(ex, "Kafka consume error from topic {topic} reason {reason}", _topicName, ex.Error.Reason);
-                    await Task.Delay(1000, stoppingToken);
+                    logger.LogWarning("Topic {topic} is not available yet, waiting...", _topicName);
+                    await Task.Delay(2000, stoppingToken);
                 }
                 catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
                 {

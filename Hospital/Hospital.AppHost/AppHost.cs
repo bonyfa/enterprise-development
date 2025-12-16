@@ -10,13 +10,17 @@ var kafka = builder.AddKafka("hospital-kafka")
         .WithKafkaUI()
         .WithEnvironment("KAFKA_AUTO_CREATE_TOPICS_ENABLE", "true");
 
+var seedPatients = builder.AddParameter("SeedPatientIds");
+var seedDoctors = builder.AddParameter("SeedDoctorIds");
+
 var kafkaTopic = builder.AddParameter("KafkaTopic");
 var kafkaGenerator = builder.AddProject<Projects.Hospital_Generator_Kafka_Host>("hospital-generator-kafka-host")
     .WithReference(kafka)
     .WithReference(apiHost)
     .WaitFor(kafka)
-    .WaitFor(apiHost)
-    .WithEnvironment("Kafka:TopicName", kafkaTopic);
+    .WithEnvironment("Kafka:TopicName", kafkaTopic)
+    .WithEnvironment("Generator:SeedPatientIds", seedPatients)
+    .WithEnvironment("Generator:SeedDoctorIds", seedDoctors);
 
 apiHost.WithEnvironment("Kafka:TopicName", kafkaTopic)
     .WithReference(kafka)

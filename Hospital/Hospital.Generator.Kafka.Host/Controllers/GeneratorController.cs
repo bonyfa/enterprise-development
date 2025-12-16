@@ -1,5 +1,4 @@
-﻿using Hospital.Application.Contracts;
-using Hospital.Application.Contracts.Appointments;
+﻿using Hospital.Application.Contracts.Appointments;
 using Hospital.Generator.Kafka.Host.Generator;
 using Hospital.Generator.Kafka.Host.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +10,12 @@ namespace Hospital.Generator.Kafka.Host.Controllers;
 /// </summary>
 /// <param name="logger">Logger instance</param>
 /// <param name="producerService">Producer service used to send contracts</param>
-/// <param name="httpClientFactory">HTTP client factory used to query Hospital API for existing identifiers</param>
 /// <param name="configuration">Configuration instance used to read generator settings</param>
 [Route("api/[controller]")]
 [ApiController]
 public sealed class GeneratorController(
     ILogger<GeneratorController> logger,
     IProducerService producerService,
-    IHttpClientFactory httpClientFactory,
     IConfiguration configuration) : ControllerBase
 {
     /// <summary>
@@ -40,22 +37,24 @@ public sealed class GeneratorController(
 
         try
         {
-            var (patientIds, doctorIds) = await GetIdPools();
-
-            if (patientIds.Count == 0 || doctorIds.Count == 0)
-                return StatusCode(500, "No patientIds or doctorIds available for generation");
-
             var list = new List<AppointmentCreateUpdateDto>(payloadLimit);
-
             var counter = 0;
+
+            var patientIds = (configuration["Generator:SeedPatientIds"] ?? "")
+                .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(Guid.Parse)
+                .ToArray();
+
+            var doctorIds = (configuration["Generator:SeedDoctorIds"] ?? "")
+                .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(Guid.Parse)
+                .ToArray();
+
             while (counter < payloadLimit)
             {
                 var currentBatchSize = Math.Min(batchSize, payloadLimit - counter);
 
-                var batch = AppointmentGenerator.GenerateContracts(
-                    count: currentBatchSize,
-                    patientIds: patientIds,
-                    doctorIds: doctorIds);
+                var batch = AppointmentGenerator.GenerateContracts(currentBatchSize, patientIds, doctorIds);
 
                 await producerService.SendAsync(batch);
 
@@ -75,46 +74,6 @@ public sealed class GeneratorController(
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(Get), GetType().Name);
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
-        }
-    }
-
-    private async Task<(IList<Guid> patientIds, IList<Guid> doctorIds)> GetIdPools()
-    {
-        var seedPatientIds = configuration.GetSection("Generator:SeedPatientIds").Get<List<Guid>>() ?? [];
-        var seedDoctorIds = configuration.GetSection("Generator:SeedDoctorIds").Get<List<Guid>>() ?? [];
-
-        var baseUrl = configuration["Generator:ApiBaseUrl"];
-        if (string.IsNullOrWhiteSpace(baseUrl))
-        {
-            logger.LogWarning("Generator:ApiBaseUrl is not configured, falling back to seed ids");
-            return (seedPatientIds, seedDoctorIds);
-        }
-
-        var patientsPath = configuration["Generator:PatientsPath"] ?? "api/Patient";
-        var doctorsPath = configuration["Generator:DoctorsPath"] ?? "api/Doctor";
-
-        try
-        {
-            var client = httpClientFactory.CreateClient("hospital-api");
-
-            var patients = await client.GetFromJsonAsync<List<EntityIdDto>>(patientsPath) ?? [];
-            var doctors = await client.GetFromJsonAsync<List<EntityIdDto>>(doctorsPath) ?? [];
-
-            var patientIds = patients.Select(x => x.Id).Distinct().ToList();
-            var doctorIds = doctors.Select(x => x.Id).Distinct().ToList();
-
-            if (patientIds.Count == 0 || doctorIds.Count == 0)
-            {
-                logger.LogWarning("Hospital API returned empty id pools, falling back to seed ids");
-                return (seedPatientIds, seedDoctorIds);
-            }
-
-            return (patientIds, doctorIds);
-        }
-        catch (Exception ex)
-        {
-            logger.LogWarning(ex, "Failed to load id pools from Hospital API, falling back to seed ids");
-            return (seedPatientIds, seedDoctorIds);
         }
     }
 }

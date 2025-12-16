@@ -4,39 +4,35 @@ using Hospital.Application.Contracts.Appointments;
 namespace Hospital.Generator.Kafka.Host.Generator;
 
 /// <summary>
-/// Generator for appointment create or update contracts using provided patient and doctor identifier pools
+/// Generates random appointment contracts to emulate an external system sending data
 /// </summary>
 public static class AppointmentGenerator
 {
     /// <summary>
-    /// Generates a list of appointment create or update contracts using random data and existing patient and doctor identifiers
+    /// Generates a list of appointment create or update contracts
     /// </summary>
     /// <param name="count">Number of contracts to generate</param>
     /// <param name="patientIds">Pool of existing patient identifiers</param>
     /// <param name="doctorIds">Pool of existing doctor identifiers</param>
-    /// <returns>Generated list of appointment create or update contracts</returns>
+    /// <returns>Generated list of appointment contracts</returns>
     public static List<AppointmentCreateUpdateDto> GenerateContracts(
         int count,
         IList<Guid> patientIds,
         IList<Guid> doctorIds)
     {
-        ArgumentOutOfRangeException.ThrowIfNegative(count);
-        ArgumentNullException.ThrowIfNull(patientIds);
-        ArgumentNullException.ThrowIfNull(doctorIds);
-        if (patientIds.Count == 0) throw new ArgumentException("Patient id pool is empty", nameof(patientIds));
-        if (doctorIds.Count == 0) throw new ArgumentException("Doctor id pool is empty", nameof(doctorIds));
+        if (patientIds.Count == 0)
+            throw new InvalidOperationException("Patient id pool is empty");
 
-        var faker = new Faker();
+        if (doctorIds.Count == 0)
+            throw new InvalidOperationException("Doctor id pool is empty");
 
         return new Faker<AppointmentCreateUpdateDto>()
-            .CustomInstantiator(_ => new AppointmentCreateUpdateDto(
-                DateAndTime: faker.Date.Between(
-                    new DateTime(2025, 1, 1, 8, 0, 0),
-                    new DateTime(2025, 1, 31, 18, 0, 0)),
-                NumberOfOffice: faker.Random.Int(101, 499),
-                IsRepeated: faker.Random.Bool(0.35f),
-                PatientId: faker.PickRandom(patientIds),
-                DoctorId: faker.PickRandom(doctorIds)
+            .CustomInstantiator(f => new AppointmentCreateUpdateDto(
+                DateAndTime: f.Date.Between(DateTime.UtcNow.AddDays(-30), DateTime.UtcNow.AddDays(30)),
+                NumberOfOffice: f.Random.Int(100, 499),
+                IsRepeated: f.Random.Bool(),
+                PatientId: f.PickRandom(patientIds),
+                DoctorId: f.PickRandom(doctorIds)
             ))
             .Generate(count);
     }
