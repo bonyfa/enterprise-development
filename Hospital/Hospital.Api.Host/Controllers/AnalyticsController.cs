@@ -19,7 +19,7 @@ public sealed class AnalyticsController(IAnalyticsService service, ILogger<Analy
     /// Returns all doctors with work experience at least 10 years ordered by passport id
     /// </summary>
     /// <returns>List of doctors</returns>
-    [HttpGet("doctors-experience>=10")]
+    [HttpGet("doctors-experience-more-than-10")]
     [ProducesResponseType(typeof(IReadOnlyList<DoctorDto>), 200)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<IReadOnlyList<DoctorDto>>> GetDoctorsWithExperienceAtLeast10()

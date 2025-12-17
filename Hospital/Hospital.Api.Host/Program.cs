@@ -59,7 +59,7 @@ builder.Services.AddSwaggerGen(c =>
     c.UseInlineDefinitionsForEnums();
 });
 
-builder.AddMongoDBClient("hospital-client");
+builder.AddMongoDBClient("HospitalConnection");
 
 builder.Services.AddDbContext<HospitalDbContext>((services, o) =>
 {

@@ -15,18 +15,8 @@ public static class AppointmentGenerator
     /// <param name="patientIds">Pool of existing patient identifiers</param>
     /// <param name="doctorIds">Pool of existing doctor identifiers</param>
     /// <returns>Generated list of appointment contracts</returns>
-    public static List<AppointmentCreateUpdateDto> GenerateContracts(
-        int count,
-        IList<Guid> patientIds,
-        IList<Guid> doctorIds)
-    {
-        if (patientIds.Count == 0)
-            throw new InvalidOperationException("Patient id pool is empty");
-
-        if (doctorIds.Count == 0)
-            throw new InvalidOperationException("Doctor id pool is empty");
-
-        return new Faker<AppointmentCreateUpdateDto>()
+    public static List<AppointmentCreateUpdateDto> GenerateContracts(int count,IList<Guid> patientIds, IList<Guid> doctorIds) => 
+        new Faker<AppointmentCreateUpdateDto>()
             .CustomInstantiator(f => new AppointmentCreateUpdateDto(
                 DateAndTime: f.Date.Between(DateTime.UtcNow.AddDays(-30), DateTime.UtcNow.AddDays(30)),
                 NumberOfOffice: f.Random.Int(100, 499),
@@ -35,5 +25,4 @@ public static class AppointmentGenerator
                 DoctorId: f.PickRandom(doctorIds)
             ))
             .Generate(count);
-    }
 }

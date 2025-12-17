@@ -40,15 +40,14 @@ public sealed class GeneratorController(
             var list = new List<AppointmentCreateUpdateDto>(payloadLimit);
             var counter = 0;
 
-            var patientIds = (configuration["Generator:SeedPatientIds"] ?? "")
-                .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                .Select(Guid.Parse)
-                .ToArray();
+            var patientIds = configuration.GetSection("Generator:SeedPatientIds")
+                .Get<List<Guid>>() ?? [];
 
-            var doctorIds = (configuration["Generator:SeedDoctorIds"] ?? "")
-                .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                .Select(Guid.Parse)
-                .ToArray();
+            var doctorIds = configuration.GetSection("Generator:SeedDoctorIds")
+                .Get<List<Guid>>() ?? [];
+
+            if (patientIds.Count == 0 || doctorIds.Count == 0)
+                return StatusCode(500, "SeedPatientIds or SeedDoctorIds is empty");
 
             while (counter < payloadLimit)
             {
